@@ -77,7 +77,7 @@ setTxtProgressBar(pb,pbcount); pbcount <- pbcount+1
 # estimate regression function
 mufit <- SuperLearner(y[a==avals[i] & train],
   as.data.frame(x[a==avals[i] & train,]),
-  newX=as.data.frame(x[test,]), SL.library=sl.lib)
+  newX=subst(x, test), SL.library=sl.lib)
 muhat[test,i] <- mufit$SL.predict
 
 Sys.sleep(0.1)
