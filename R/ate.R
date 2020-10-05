@@ -68,7 +68,7 @@ if (nsplits==1){ train <- test }
 # estimate propensity score
 if (i != n.avals & is.null(ps)){
 pifit <- SuperLearner(as.numeric(a==avals[i])[train],as.data.frame(x[train,]),
-  newX=as.data.frame(x[test,]), SL.library=sl.lib, family=binomial)
+  newX=subset(x, test), SL.library=sl.lib, family=binomial)
 pihat[test,i] <-pifit$SL.predict }
 
 Sys.sleep(0.1)
