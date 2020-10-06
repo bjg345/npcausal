@@ -67,7 +67,7 @@ if (nsplits==1){ train <- test }
 
 # estimate propensity score
 if (i != n.avals & is.null(ps)){
-pifit <- SuperLearner(as.numeric(a==avals[i])[train],as.data.frame(x[train,]),
+pifit <- SuperLearner(as.numeric(a==avals[i])[train], subset(x, train),
   newX=subset(x, test), SL.library=sl.lib, family=binomial)
 pihat[test,i] <-pifit$SL.predict }
 
@@ -76,8 +76,8 @@ setTxtProgressBar(pb,pbcount); pbcount <- pbcount+1
 
 # estimate regression function
 mufit <- SuperLearner(y[a==avals[i] & train],
-  as.data.frame(x[a==avals[i] & train,]),
-  newX=subst(x, test), SL.library=sl.lib)
+  subset(x, a==avals[i] & train),
+  newX=subset(x, test), SL.library=sl.lib)
 muhat[test,i] <- mufit$SL.predict
 
 Sys.sleep(0.1)
